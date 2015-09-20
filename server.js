@@ -1,5 +1,8 @@
 var http = require('http');
 var fs = require('fs');
+var queryString = require('querystring');
+var mustache = require('mustache');
+var count = 0;
 
 var server = http.createServer(function(req, res) {
   if(req.method == 'POST') {
@@ -9,16 +12,18 @@ var server = http.createServer(function(req, res) {
     body += data;
     });
     req.on('end', function() {
-      console.log("body is" + body);
-      res.writeHead(301, {'location' : "index.html"});
+      var formData = queryString.parse(body);
+      console.log(formData);
+      res.writeHead(301, {'location' : "/"});
       res.end();
     });
 
   } else {
-    fs.readFile("index.html", function(err, data) {
+    fs.readFile("index.html", "utf8", function(err, data) {
       res.writeHead(200, {'Content-Type': 'text/html'});
-      res.end(data);
-    })
+      res.end(mustache.render(data, {hit_count : count}));
+      count = count + 1;
+    });
   }
 });
 
