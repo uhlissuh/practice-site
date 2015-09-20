@@ -19,4 +19,14 @@
   <div>
     hit count = {{hit_count}}
   </div>
+  <div>
+    <h2>
+      People
+    </h2>
+    <ul>
+      {{#people}}
+      <li>name: {{first_name}}, sex: {{sex}}</li>
+      {{/people}}
+    </ul>
+  </div>
 </html>
