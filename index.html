@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 
 <html>
+<head>
+</head>
+<body>
   <form action="#" method="post">
     <div>
       <label>Name:</label>
@@ -25,8 +28,18 @@
     </h2>
     <ul>
       {{#people}}
-      <li>name: {{first_name}}, sex: {{sex}}</li>
+      <li> name: <span class="first-name">{{first_name}}</span>, sex: {{sex}} <button class="close_button" aria-label="delete">&times;</button></li>
       {{/people}}
     </ul>
   </div>
+<script type="text/javascript">
+  var closeButtons = document.getElementsByClassName("close_button");
+  for (var i = 0; i < closeButtons.length; i++) {
+    closeButtons[i].addEventListener("click", function(event) {
+      confirm("Do you really want to delete " + event.target.parentNode.getElementsByClassName("first-name")[0].innerText + "?");
+    });
+  }
+
+</script>
+</body>
 </html>
