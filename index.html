@@ -28,7 +28,7 @@
     </h2>
     <ul>
       {{#people}}
-      <li> name: <span class="first-name">{{first_name}}</span>, sex: {{sex}} <button class="close_button" aria-label="delete">&times;</button></li>
+      <li> name: <span class="first-name">{{name}}</span>, sex: {{sex}} <button class="close_button" aria-label="delete">&times;</button></li>
       {{/people}}
     </ul>
   </div>
@@ -36,7 +36,15 @@
   var closeButtons = document.getElementsByClassName("close_button");
   for (var i = 0; i < closeButtons.length; i++) {
     closeButtons[i].addEventListener("click", function(event) {
-      confirm("Do you really want to delete " + event.target.parentNode.getElementsByClassName("first-name")[0].innerText + "?");
+      var name = event.target.parentNode.getElementsByClassName("first-name")[0].innerText;
+      if (confirm("Do you really want to delete " + name + " ?")) {
+        var deleteRequest = new XMLHttpRequest();
+        deleteRequest.open('DELETE', name);
+        deleteRequest.send();
+        deleteRequest.onload = function() {
+          location.reload();
+        }
+      }
     });
   }
 
