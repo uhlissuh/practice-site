@@ -36,10 +36,10 @@
   var closeButtons = document.getElementsByClassName("close_button");
   for (var i = 0; i < closeButtons.length; i++) {
     closeButtons[i].addEventListener("click", function(event) {
-      var name = event.target.parentNode.getElementsByClassName("first-name")[0].innerText;
-      if (confirm("Do you really want to delete " + name + " ?")) {
+      var name = event.target.parentNode.getElementsByClassName("first-name")[0].innerHTML;
+      if (confirm("Do you really want to delete " + name +" ?")) {
         var deleteRequest = new XMLHttpRequest();
-        deleteRequest.open('DELETE', name);
+        deleteRequest.open('DELETE', encodeURIComponent(name));
         deleteRequest.send();
         deleteRequest.onload = function() {
           location.reload();
